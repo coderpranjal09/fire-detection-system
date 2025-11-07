@@ -1,6 +1,6 @@
 const FireAlert = require('../models/fireData');
 
-// API: POST /api/fire-alert
+// API: POST /api/fire-alerts
 const fireAlert = async (req, res) => {
   try {
     const { deviceId, isfire, longitude, latitude, humidity, temp, smoke } = req.body;
