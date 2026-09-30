@@ -10,14 +10,22 @@ const app = express();
 
 // Enable CORS for all origins (IoT devices)
 app.use(cors({
-  origin: "*",           // Allow requests from any origin
+  origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 // Parse JSON bodies
 app.use(express.json());
-app.use(express.urlencoded({ extended: true })); // optional for form-data
+app.use(express.urlencoded({ extended: true }));
+
+// Home Route
+app.get("/", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: " Fire Detection System API is running"
+  });
+});
 
 // Routes
 app.use("/api/fire-alerts", fireRoutes);
@@ -31,4 +39,7 @@ mongoose.connect(process.env.MONGO_URI, {
 .catch(err => console.error("MongoDB error:", err));
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, "0.0.0.0", () => console.log(`Server running on port ${PORT}`));
+
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server running on port ${PORT}`);
+});
